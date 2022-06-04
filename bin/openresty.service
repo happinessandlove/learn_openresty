@@ -1,0 +1,16 @@
+[Unit]
+Description=The OpenResty Application Platform
+After=syslog.target network-online.target remote-fs.target nss-lookup.target
+Wants=network-online.target
+
+[Service]
+Type=forking
+PIDFile=/home/openresty/openresty_work_dir/logs/nginx.pid
+ExecStartPre=openresty -p /home/openresty/openresty_work_dir -c conf/nginx.conf -t
+ExecStart=openresty -p /home/openresty/openresty_work_dir -c conf/nginx.conf
+ExecReload=openresty -p /home/openresty/openresty_work_dir -c conf/nginx.conf -s reload
+ExecStop=openresty -p /home/openresty/openresty_work_dir -c conf/nginx.conf -s stop
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
