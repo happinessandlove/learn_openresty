@@ -1,1 +1,1 @@
-nginx -p `pwd`/ -c conf/nginx.conf -t
+openresty -p `pwd`/ -c conf/nginx.conf -t
