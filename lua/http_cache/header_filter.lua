@@ -1,5 +1,5 @@
 local args = ngx.req.get_uri_args()
-local etag = ngx.md5(args.content)
+local etag = ngx.md5(ngx.ctx.body)
 local last_modified = "Wed, 01 Jun 2022 10:39:14 GMT"
 ngx.header.Last_Modified = last_modified
 local headers, err = ngx.req.get_headers(0)
