@@ -3,13 +3,9 @@ local etag = ngx.md5(ngx.ctx.body)
 local last_modified = "Wed, 01 Jun 2022 10:39:14 GMT"
 ngx.header.Last_Modified = last_modified
 local headers, err = ngx.req.get_headers(0)
--- ETag 没有变化，直接返回304状态码, 且etag的优先级比last_modified高
+-- ETag 没有变化，直接返回304状态码
 ngx.header.ETag = etag
 if etag == headers["if-none-match"] then
-    ngx.exit(ngx.HTTP_NOT_MODIFIED)
-end
-
-if last_modified == headers["if-modified-since"] then
     ngx.exit(ngx.HTTP_NOT_MODIFIED)
 end
 
